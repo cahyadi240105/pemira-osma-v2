@@ -1,0 +1,19 @@
+# Blokir eksekusi script di folder images/
+<FilesMatch "\.(php|php5|phtml|phar)$">
+    Deny from all
+</FilesMatch>
+
+# Blokir akses file selain gambar
+<FilesMatch "\.(htaccess|htpasswd|ini|sh|pl|cgi|exe|asp|aspx|jsp|py)$">
+    Deny from all
+</FilesMatch>
+
+# Hanya izinkan file gambar yang umum
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Optional: nonaktifkan script execution secara umum
+Options -ExecCGI
+AddType text/plain .php .php5 .phtml .phar .pl .py .jsp .asp .aspx

@@ -1,0 +1,8 @@
+{
+    "require": {
+        "paragonie/paseto": "^1.1",
+        "paragonie/sodium_compat": "^1.21",
+        "phpoffice/phpspreadsheet": "^4.3",
+        "paragonie/halite": "^5.0"
+    }
+}
