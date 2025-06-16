@@ -41,20 +41,21 @@ PEMIRA-OSMA kini dilindungi dengan sistem keamanan canggih:
 ### 🧱 Struktur Direktori
 
 ```
-/pemira-osma
+/pemira-osma 
+├── /auth/  
 ├── /css/            
 ├── /docs/            
 ├── /fonts/      
 ├── /images/           
-├── /js/             
-├── /pages/
+├── /js/
+├── /logo web/       
+├── /logs/
 ├── /partials/
 ├── /scss/
 ├── /vendor/
-├── /vendors/               
-├── /auth/           # Berisi logika autentikasi dan konfigurasi keamanan
-├── /crypto/         # Berisi fungsi enkripsi, dekripsi, tanda tangan
-├── index.php           
+├── /vendors/        
+├── index.php
+.....         
 └── README.md
 ```
 
@@ -65,20 +66,31 @@ PEMIRA-OSMA kini dilindungi dengan sistem keamanan canggih:
 Pastikan untuk mengatur kunci kriptografi pada file berikut:
 
 * `/auth/config.php` — konfigurasi database dan pengaturan umum
-* `/crypto/keys.php` — lokasi public/private key Ed25519
-* `/crypto/encryption.php` — AES/ChaCha encryption helper
-* `/crypto/paseto.php` — helper untuk encoding dan decoding token Paseto
+* `/auth/keys/` — lokasi enkripsi
 
 Contoh pengaturan kunci:
 
 ```php
-// crypto/keys.php
-return [
-    'ed25519_public_key' => base64_decode('...'),
-    'ed25519_private_key' => base64_decode('...'),
-    'aes_key' => base64_decode('...'),
-    'paseto_key' => base64_decode('...'), // untuk local mode
-];
+ $keyDir = __DIR__ . '/auth/keys/';
+    if (!is_dir($keyDir)) {
+        throw new Exception("Direktori kunci tidak ditemukan");
+    }
+
+    $encKeyPath = $keyDir . 'encrypt.key';
+    if (!file_exists($encKeyPath)) {
+        throw new Exception("File kunci enkripsi tidak ditemukan");
+    }
+
+    $encryptionKey = file_get_contents($encKeyPath);
+    if ($encryptionKey === false) {
+        throw new Exception("Gagal membaca file kunci");
+    }
+
+    if (strlen($encryptionKey) !== SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_KEYBYTES) {
+        error_log("Kunci tidak valid. Ukuran: " . strlen($encryptionKey) . " byte, Harus: " .
+            SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_IETF_KEYBYTES . " byte");
+        throw new Exception("Ukuran kunci enkripsi tidak valid");
+    }
 ```
 
 ---
@@ -88,13 +100,13 @@ return [
 1. Clone proyek:
 
    ```bash
-   git clone https://github.com/cahyadi240105/pemira-osma.git
+   git clone https://github.com/cahyadi240105/pemira-osma-v2.git
    ```
 
 2. Masuk ke folder:
 
    ```bash
-   cd pemira-osma
+   cd pemira-osma-v2
    ```
 
 3. Import file SQL ke database lokal Anda.
@@ -102,7 +114,7 @@ return [
 4. Konfigurasikan database dan kriptografi di:
 
    * `/auth/config.php`
-   * `/crypto/keys.php` (buat jika belum ada)
+   * `/auth/keys/` 
 
 5. Jalankan proyek pada server lokal seperti XAMPP atau Laragon.
 
@@ -110,7 +122,7 @@ return [
 
 ### ⚠️ Catatan Tambahan
 
-> **Jangan** membagikan file `keys.php` ke publik atau commit ke repositori. Gunakan file `.gitignore` untuk menghindari kebocoran kunci enkripsi.
+> **Jangan** membagikan file dalam folder `keys` ke publik atau commit ke repositori. Gunakan file `.gitignore` untuk menghindari kebocoran kunci enkripsi.
 
 ---
 
