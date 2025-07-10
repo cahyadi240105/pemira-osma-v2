@@ -12,7 +12,6 @@ PEMIRA-OSMA kini dilindungi dengan sistem keamanan canggih:
 * 🔒 **AES-GCM / ChaCha20-Poly1305**: untuk enkripsi simetris data sensitif.
 * 🧾 **SHA3-256**: untuk hashing aman seperti password, token, dan integritas data.
 * ✍️ **Ed25519**: untuk tanda tangan digital yang cepat dan aman.
-* 🪪 **Paseto (Platform-Agnostic Security Tokens)**: sebagai alternatif JWT yang lebih aman untuk token autentikasi dan otorisasi.
 * 🔑 **Manajemen Kunci Enkripsi**: sistem ini membangkitkan dan mengelola kunci enkripsi secara lokal dan aman, menyimpan public key untuk verifikasi tanda tangan dan mengenkripsi data pada saat pendaftaran dan voting.
 
 ---
