@@ -29,12 +29,12 @@ PEMIRA-OSMA kini dilindungi dengan sistem keamanan canggih:
 
 ### 🛠️ Teknologi yang Digunakan
 
-| Komponen | Teknologi                                                          |
+| Komponen | Teknologi|
 | -------- | ------------------------------------------------------------------ |
-| Bahasa   | PHP Native                                                         |
-| Frontend | Skydash Admin Template (Free)                                      |
-| Database | MySQL / MariaDB                                                    |
-| Keamanan | AES-GCM / ChaCha20-Poly1305, SHA3-256, Ed25519, Paseto             |
+| Bahasa   | PHP Native|
+| Frontend | Skydash Admin Template (Free) |
+| Database | MySQL / MariaDB |
+| Keamanan | AES-GCM / ChaCha20-Poly1305, SHA3-256, Ed25519|
 
 ---
 
